@@ -16,14 +16,12 @@ namespace Collision
         public int xp;
         public int xpToNextLevel;
         public int level = 0;
-        public Rectangle rectangle;
         const float PI = 3.1415f;
         SpriteManager spriteManager;
-        MapManager mapManager;
         
         public Player(Texture2D textureImage, Vector2 position, Point frameSize,
             Point currentFrame, Point sheetSize, float angle, int totalhp, int hp,
-            int xp, int xpToNextLevel, float depth, SpriteManager spriteManager, MapManager mapManager)
+            int xp, int xpToNextLevel, float depth, SpriteManager spriteManager)
             : base(textureImage, position, frameSize, currentFrame, sheetSize, angle, depth)
         {
             this.totalhp = totalhp;
@@ -31,18 +29,6 @@ namespace Collision
             this.xp = xp;
             this.xpToNextLevel = xpToNextLevel;
             this.spriteManager = spriteManager;
-            this.mapManager = mapManager;
-        }
-
-        
-
-        public bool canMoveUp
-        {
-            get
-            {
-                Rectangle intersectionRect = Rectangle.Intersect(collisionRectangle, mapManager.currentMap.wallCollisionRectangle);
-                return (intersectionRect.Center.Y < position.Y);
-            }
         }
 
         public Vector2 direction
@@ -61,7 +47,7 @@ namespace Collision
                 {
                     inputDirection.X++;
                 }
-                if (Keyboard.GetState().IsKeyDown(Keys.W) && canMoveUp)
+                if (Keyboard.GetState().IsKeyDown(Keys.W))
                 {
                     inputDirection.Y--;
                 }
@@ -94,13 +80,15 @@ namespace Collision
 
         public void Update(GameTime gameTime, Rectangle clientBounds)
         {
-                        
-            position += direction;
+
+            if(spriteManager.playerCanMove)
+                position += direction;
             MouseState currMouseState = Mouse.GetState();
             if (currMouseState.Y < position.Y)
                 angle = -(float)Math.Atan(((double)currMouseState.X - (double)position.X) / ((double)currMouseState.Y - (double)position.Y));
             else if (currMouseState.Y > position.Y)           
                 angle = (float)Math.PI - (float)Math.Atan(((double)currMouseState.X - (double)position.X) / ((double)currMouseState.Y - (double)position.Y));
+            
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

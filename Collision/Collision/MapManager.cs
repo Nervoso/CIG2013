@@ -19,7 +19,6 @@ namespace Collision
     {
         public SpriteBatch spriteBatch;
         Map testMap;
-        public Map currentMap;
 
         public MapManager(Game game)
             : base(game)
@@ -37,7 +36,6 @@ namespace Collision
 
             testMap = new Map("C:\\Users\\Gustavo\\Documents\\GitHub\\CIG2013\\Collision\\Collision\\Content\\Maps\\maptest.txt", wallTile, groundTile, portalTile);
             testMap.Initialize();
-            currentMap = testMap;
         }
 
         /// <summary>
@@ -66,7 +64,7 @@ namespace Collision
         {
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
             
-            currentMap.Draw(gameTime, spriteBatch);
+            testMap.Draw(gameTime, spriteBatch);
 
             spriteBatch.End();
             
