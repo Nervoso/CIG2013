@@ -42,7 +42,6 @@
     <Compile Include="Enemy.cs" />
     <Compile Include="Bar.cs" />
     <Compile Include="Minimap.cs" />
-    <Compile Include="Ogre.cs" />
     <Compile Include="Sword.cs" />
     <Compile Include="SpriteManager.cs" />
     <Compile Include="Player.cs" />
